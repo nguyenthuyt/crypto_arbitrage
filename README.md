@@ -102,10 +102,15 @@ Rarely are datasets loaded in perfectly. Many times datasets need to be cleaned 
 
 In this phase, graphical visualizations along with data statistics will be generated to analyze the data for potential arbitrage opportunities. The matplotlib dependency is utilized here to plot the data visualization. Based on the resulting visualizations, you can evaluate how the spread has changed between the two exchanges over time. 
 
+*(Detailed instructions for completing the third phase: Analyze the data can be found in the **crypto_arbitrage.ipynb** file.)*
+
 - First, begin with a big picture-view to gain a general understanding of the data before performing arbitrage calculations. You complete this by performing the following:
     - Choose the columns of data on which to focus your analysis using the `loc` function.
     - Then, generate summary statistics for each DataFrame with `df.describe()`
-    - Then, create an overlay plot that visualizes the price action of both DataFrames using `df.plot()` defining figsize, legend, color, and label
+    - Then, create an overlay plot that visualizes the price action of both DataFrames using `df.plot()` defining figsize, legend, color, and label. See resulting line graph below:
+
+![JupyterLab notebook big picture](images/bitstamp_v_coinbase.PNG)
+
 - Second, select three specific points of reference for a more detailed analysis: (1) early date (2) middle date and (3) later date. With these three dates you will:
     - Generate summary statistics for each date
     - Create an overlay plot visualizing the two DataFrames over each date
@@ -113,9 +118,12 @@ In this phase, graphical visualizations along with data statistics will be gener
     - For each of the dates, narrow down the trading opportunities by determining the number of times positive trades exceeded 1% or the cost of trading
     - Calculate the potential profits for each of the dates using the formula: spread returns > 1% x purchase price
     - Use the `df.sum()` and `df.cumsum()`functions to calculate the potential arbitrage profits
-    - Plot each of the results from the calculations 
+    - Plot each of the results from the profit per trade and `cumsum` 
 
-Detailed instructions for completing the third phase: Analyze the data can be found in the **crypto_arbitrage.ipynb** file.
+![JupyterLab notebook profit per trade](images/profit_per_trade.PNG)
+![JupyterLab notebook cumulative sum](images/cumsum.PNG)
+
+
 
 ### **Final analysis report:**
 Once all three phases are completed and the summary statistics and supporting visualizations have been generated, summarize your key assumptions, findings, and conclusions. In the case of the crypto arbitrage analysis, profitable arbitrage opportunities for Bitcoin between Bitstamp and Coinbase were significant but short-lived as time progressed. As arbitrage opportunities were exploited, the prices in the cheaper exchange went up and the prices in the more expensive exchange went down, ultimately resulting in the prices syncing up and consequently, the profits disappearing.
