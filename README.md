@@ -92,7 +92,7 @@ Rarely are datasets loaded in perfectly. Many times datasets need to be cleaned 
 
 - Second, if non-numerical values exist within a numerical dataset such as a dollar sign in the "Close" price column, then use the str.replace function to remove the dollar signs from the values in the Close column. `df.loc[:,'Close'].str.replace("$","")`
 
-- Third, type `df.dtypes` to confirm whether numercal values are assigned the incorrect data type such as the "Close" column set as an object. Convert the data type of the "Close" column to a float by typing `df.[:,"Close"].astype`.
+- Third, type `df.dtypes` to confirm whether numercal values are assigned the incorrect data type such as the "Close" column set as an object. Convert the data type of the "Close" column to a float by typing `df.loc[:,"Close"].astype("float")`.
 
 - Finally, review the data for duplicated values by typing `df.duplicated().sum()` and drop them if necessary by typing `df.drop_duplicates()`.
 
