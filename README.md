@@ -1,12 +1,16 @@
 # Crypto Arbitrage Analysis Project
 
+Many times pricing discrepancies can exist for the same asset on two different exchanges, providing an arbitrage opportunity to simultaneously buy the asset on the lower priced exchange and sell the asset on the higher priced exchange. Using Python in conjunction with the power of Pandas and JupyterLab, we can quickly and efficiently identify these price dislocations and make executable trade decisions.
+
 The purpose of the crypto arbitrage analysis project is to apply the following three-phase process to analyze arbitrage opportunities and trends for Bitcoin cryptocurrency between two exchanges, Bitstamp and Coinbase, for the period January 1, 2018 to March 31, 2018:
 
 - Collect data
 - Prepare the data
 - Analyze the data
+ 
+The visualizations generated from the 'Analyze Data' phase should allow us to produce an analysis report describing the key assumptions, trends, and discoveries and which will consequently aid in the decision-making process. 
 
-The visualizations generated from the 'Analyze Data' phase should allow you to produce an analysis report describing the key assumptions, trends, and discoveries. The data and variables in the notebook can be customized to perform analyses on other arbitrage opportunities.
+The datasets and variables in the notebook can be customized to perform analyses on other arbitrage opportunities.
 
 
 ---
@@ -82,22 +86,38 @@ To confirm the data was imported properly, use the head and/or tail function to 
 
 
 ### **Step 2: Prepare the data**
-Rarely are datasets loaded in perfectly. Many times datasets need to be cleaned for missing and/or duplicate data. To prepare and clean your Bitstamp and Coinbase data for analysis, we complete the following steps:
+Rarely are datasets loaded in perfectly. Many times datasets need to be cleaned for missing, duplicate, and/or non-numerical data. To prepare and clean the data for analysis: 
 
--Replace or drop all NaN, or missing, values in the DataFrame.
+- First, identify whether NaN or missing values exist, by typing `df.isnull().sum()`. If NaN values exist, type `df.dropna()` to drop all NaN values. 
 
--Use the str.replace function to remove the dollar signs ($) from the values in the Close column.
+-Second, if non-numerical values exist within a numerical dataset such as a dollar sign in the "Close" price column, then use the str.replace function to remove the dollar signs from the values in the Close column. `df.loc[:,'Close'].str.replace("$","")`
 
--Convert the data type of the Close column to a float.
+-Third, type `df.dtypes` to confirm whether numercal values are assigned the incorrect data type such as the "Close" column set as an object. Convert the data type of the Close column to a float by typing `df.[:,"Close"].astype`.
 
--Review the data for duplicated values, and drop them if necessary.
+-Finally, review the data for duplicated values by typing `df.duplicated().sum()` and drop them if necessary by typing `df.drop_duplicates()`.
 
- 
+ - Repeat the steps, as needed.
 
 ### **Step 3: Analyze the data**
 
+In this phase, graphical visualizations along with data statistics will be generated to analyze the data for potential arbitrage opportunities. The matplotlib dependency is utilized here to plot the data visualization. Based on the resulting visualizations, you can evaluate how the spread has changed between the two exchanges over time. 
 
-### **Final Analysis Report**
+- First, begin with a big picture-view to gain a general understanding of the data before performing arbitrage calculations. You complete this by completing the following:
+    - Choose the columns of data on which to focus your analysis using the `loc` function.
+    - Then, generate summary statistics for each DataFrame with `df.describe()`
+    - Then, create an overlay plot that visualizes the price action of both DataFrames 
+- Second, select three specific points of reference for a more detailed analysis: (1) early date (2) middle date and (3) later date. With these three dates you will:
+    - Generate summary statistics for each date
+    - Create an overlay plot visualizing the two DataFrames over each date
+    - Calculate the arbitrage spread by subtracting the lower price exchange from the higher price exchange
+    - For each of the dates, narrow down the trading opportunities by determining the number of times positive trades exceeded 1% or the cost of trading
+    - Calculate the potential profits for each of the dates using the formula: spread returns > 1% x purchase price
+    - Use the `df.sum()` and `df.cumsum()`functions to calculate the potential arbitrage profits and plot the results 
+- Detailed instructions for completing the third phase: Analyze the data can be found in the **crypto_arbitrage.ipynb** file.
+
+### **Final analysis report:**
+Once all three phases are completed and the summary statistics and supporting visualizations have been generated, summarize your key assumptions, findings, and conclusions. In the case of the crypto arbitrage analysis, profitable arbitrage opportunities for Bitcoin between Bitstamp and Coinbase were significant but short-lived as time progressed. As arbitrage opportunities were exploited, the prices in the cheaper exchange went up and the prices in the more expensive exchange went down, ultimately resulting in the prices syncing up and consequently, the profits started disappearing.
+
 
 ### **Quit instructions:**
 After saving the file, from the menu bar, navigate to **'File'**, select **'Shutdown'** from the drop-down menu and confirm Shut Down.
